@@ -1,25 +1,17 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'pages/home.dart';
+import 'router.dart';
+
 void main() {
-  runApp(
-    const MyApp()
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key}); // ✅ 加上构造函数
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HW4',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
+    return MaterialApp.router(
+      routerConfig: router,
     );
   }
 }

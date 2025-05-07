@@ -1,9 +1,5 @@
-import 'package:books/pages/home.dart';
 import 'package:flutter/material.dart';
-
-
-
-
+import 'package:go_router/go_router.dart';
 
 class Login extends StatelessWidget {
 
@@ -16,29 +12,26 @@ class Login extends StatelessWidget {
       centerTitle: true,
       title: const Text(
         "Log In",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
     ),
     
-    body: Center( 
-      child:SizedBox(
-        width:150,
-      child:FilledButton( 
-      onPressed: () {
-      Navigator.pushAndRemoveUntil(
-  context,
-  MaterialPageRoute(builder: (context) => const HomePage()),
-  (Route<dynamic> route) => false,
-);
-
-    },
-      style: FilledButton.styleFrom(    
-      backgroundColor: const Color.fromARGB(255, 170, 131, 182), 
-      foregroundColor:Colors.white,
-      side: const BorderSide(color: Colors.white),
-       ),
-      child: const Text('Log In'),
-      ),
+    body: Container(
+      color: Colors.white, // ✅ 设置背景色（你可以改成任何颜色）
+      alignment: Alignment.center, // ✅ 保持内容居中
+      child: SizedBox(
+        width: 150,
+        child: FilledButton(
+          onPressed: () {
+            context.go('/byAuthor');
+          },
+          style: FilledButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 170, 131, 182),
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Colors.white),
+          ),
+          child: const Text('Login'),
+        ),
       ),
     ),
       );

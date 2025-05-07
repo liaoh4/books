@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
-import 'bytitledetail.dart';
-import 'byauthordetail.dart';
-import 'byauthor.dart';
-import 'bytitle.dart';
-import 'profile.dart';
-
+import 'package:go_router/go_router.dart';
 
 class ByTitle extends StatelessWidget {
 
   const ByTitle({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-      centerTitle: true,
-      title: const Text(
-        "Books",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-      ),
-    ),
-       body: Align(
+    return  Align(
       alignment: Alignment.topCenter,
       child: Column(
  
@@ -37,10 +24,7 @@ class ByTitle extends StatelessWidget {
       const SizedBox(height: 20),
      InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ByTitleDetail()),
-        );
+       context.push('/byTitleDetail');
       },
       child: Card(
         elevation: 0,
@@ -63,10 +47,7 @@ class ByTitle extends StatelessWidget {
     const SizedBox(height: 24),
     InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ByTitleDetail()),
-        );
+        context.push('/byTitleDetail');
       },
       child: Card(
         elevation: 0,
@@ -89,47 +70,8 @@ class ByTitle extends StatelessWidget {
     const SizedBox(height: 8),
   ],
 ),
-       ),
-       bottomNavigationBar: BottomNavigationBar(
-  
-  onTap: (index) {
-    
-
-    Widget nextPage;
-    switch (index) {
-      case 0:
-        nextPage = const ByAuthor();
-        break;
-      case 1:
-        nextPage = const ByTitle();
-        break;
-      case 2:
-        nextPage = const Profile();
-        break;
-      default:
-        nextPage = const ByAuthor();
-    }
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => nextPage),
-    );
-  },
-  items: const [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'By Author',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.text_fields),
-      label: 'By Title',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: 'Profile',
-    ),
-  ],
-),
+       
+       
     );
 
       
