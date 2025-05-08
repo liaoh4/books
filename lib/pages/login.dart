@@ -1,40 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../authentication/authentication_bloc.dart';
+import '../authentication/firebase_auth_repository.dart';
 
-class Login extends StatelessWidget {
-
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String _errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
-   
+    final authRepo = RepositoryProvider.of<FirebaseAuthRepository>(context);
+
     return Scaffold(
-      appBar: AppBar(
-      centerTitle: true,
-      title: const Text(
-        "Log In",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-    ),
-    
-    body: Container(
-      color: Colors.white, // ✅ 设置背景色（你可以改成任何颜色）
-      alignment: Alignment.center, // ✅ 保持内容居中
-      child: SizedBox(
-        width: 150,
-        child: FilledButton(
-          onPressed: () {
-            context.go('/byAuthor');
-          },
-          style: FilledButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 170, 131, 182),
-            foregroundColor: Colors.white,
-            side: const BorderSide(color: Colors.white),
-          ),
-          child: const Text('Login'),
+      appBar: AppBar(title: const Text('Login')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  await authRepo.logInWithEmailAndPassword(
+                    email: _emailController.text.trim(),
+                    password: _passwordController.text.trim(),
+                  );
+                } catch (e) {
+                  setState(() {
+                    _errorMessage = e.toString();
+                  });
+                }
+              },
+              child: const Text('Login'),
+            ),
+            if (_errorMessage.isNotEmpty)
+              Text(_errorMessage, style: const TextStyle(color: Colors.red)),
+          ],
         ),
       ),
-    ),
-      );
-      
+    );
   }
 }

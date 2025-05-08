@@ -20,7 +20,7 @@ class ByTitleDetail extends StatelessWidget {
         color: Colors.white,
         width: double.infinity,
         height: double.infinity,
-        padding: const EdgeInsets.all(16.0), // 可选：添加内边距
+        padding: const EdgeInsets.all(16.0), 
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

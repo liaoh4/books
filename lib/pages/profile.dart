@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../authentication/authentication_bloc.dart';
+import '../authentication/authentication_event.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -8,13 +9,13 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color:Colors.white, // ✅ 设置背景色（你可以改成任何颜色）
-      alignment: Alignment.center, // ✅ 保持内容居中
+      color: Colors.white,
+      alignment: Alignment.center,
       child: SizedBox(
         width: 150,
         child: FilledButton(
           onPressed: () {
-            context.go('/login');
+            context.read<AuthenticationBloc>().add(AuthenticationLogoutEvent());
           },
           style: FilledButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 170, 131, 182),
