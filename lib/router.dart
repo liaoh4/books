@@ -9,7 +9,7 @@ import 'pages/byauthordetail.dart';
 import 'pages/profile.dart';
 import 'pages/login.dart';
 
-import 'authentication/gorouter_refresh_stream.dart'; // 第一步创建的监听类
+import 'authentication/gorouter_refresh_stream.dart'; 
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();

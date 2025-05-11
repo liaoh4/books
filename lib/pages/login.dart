@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../authentication/authentication_bloc.dart';
 import '../authentication/firebase_auth_repository.dart';
 
 class Login extends StatefulWidget {
@@ -16,6 +14,15 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String _errorMessage = '';
+   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final location = GoRouterState.of(context).uri.toString();
+    if (location == '/login') {
+      _emailController.clear();
+      _passwordController.clear();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +54,8 @@ class _LoginState extends State<Login> {
                 } catch (e) {
                   setState(() {
                     _errorMessage = e.toString();
+                    _emailController.clear();     // clean email
+                    _passwordController.clear();  // clean password
                   });
                 }
               },
