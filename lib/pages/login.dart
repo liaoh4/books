@@ -13,7 +13,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String _errorMessage = '';
+  
+
    @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -22,6 +23,25 @@ class _LoginState extends State<Login> {
       _emailController.clear();
       _passwordController.clear();
     }
+  }
+   void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Login Failed'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -52,17 +72,14 @@ class _LoginState extends State<Login> {
                     password: _passwordController.text.trim(),
                   );
                 } catch (e) {
-                  setState(() {
-                    _errorMessage = e.toString();
-                    _emailController.clear();     // clean email
-                    _passwordController.clear();  // clean password
-                  });
+                  _showErrorDialog(e.toString());
+                  _emailController.clear();
+                  _passwordController.clear();
                 }
               },
               child: const Text('Login'),
             ),
-            if (_errorMessage.isNotEmpty)
-              Text(_errorMessage, style: const TextStyle(color: Colors.red)),
+            
           ],
         ),
       ),
